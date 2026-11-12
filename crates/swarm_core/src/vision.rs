@@ -230,7 +230,31 @@ pub fn crop_reference_chip(img: &RgbImage, cx: f64, cy: f64, half_size: u32) -> 
     image::imageops::crop_imm(img, x0, y0, side, side).to_image()
 }
 
+/// Multi-scale ORB-equivalent extraction. The reference chip and the followers'
+/// live views differ in scale by up to ~4x; single-scale BRIEF produced zero
+/// distinctive matches cross-scale (ratio p50 ~0.94), while cv2 ORB bridges it
+/// with its scale pyramid. Keypoint coordinates are reported in the ORIGINAL
+/// image frame.
 pub fn extract_orb_features(img: &RgbImage, max_features: usize) -> Vec<Keypoint> {
+    const SCALES: [f32; 4] = [1.0, 0.75, 0.5, 0.35];
+    let mut kps = Vec::new();
+    for &s in &SCALES {
+        let per_level = (max_features * 2).max(64);
+        if (s - 1.0).abs() < 1e-6 {
+            kps.extend(extract_orb_at_scale(img, per_level, s));
+        } else {
+            let nw = ((img.width() as f32 * s).round() as u32).max(48);
+            let nh = ((img.height() as f32 * s).round() as u32).max(48);
+            let scaled = image::imageops::resize(img, nw, nh, image::imageops::FilterType::Triangle);
+            kps.extend(extract_orb_at_scale(&scaled, per_level, s));
+        }
+    }
+    kps.sort_by(|a, b| b.score.cmp(&a.score));
+    kps.truncate(max_features);
+    kps
+}
+
+fn extract_orb_at_scale(img: &RgbImage, max_features: usize, scale: f32) -> Vec<Keypoint> {
     let w = img.width() as usize;
     let h = img.height() as usize;
     let raw = img.as_raw();
@@ -302,8 +326,8 @@ pub fn extract_orb_features(img: &RgbImage, max_features: usize) -> Vec<Keypoint
                     }
                 }
                 kps.push(Keypoint {
-                    x: x as f32,
-                    y: y as f32,
+                    x: x as f32 / scale,
+                    y: y as f32 / scale,
                     angle,
                     score,
                     desc,

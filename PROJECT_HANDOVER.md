@@ -3472,3 +3472,64 @@ What this simulation is, and what it is **not**, stated plainly:
 - Latest-run evidence: `results/report.json` (canonical), `mark.json`, `handoff_*.json`, `visual_id_*.json`, `lock_*.json`, `ground_truth.json`, `tracks.csv`, `id_attempts_*.log`, `stage2_debug_*.log`, PNG frames.
 - Dashboard: `python build_dashboard.py` → interactive HTML with trajectory map, drift card, terminal-error metrics, camera evidence.
 - World regeneration + data-source attribution: `build_realmap_world.py` and `worlds/textures/realmap_meta.json`.
+
+---
+
+## Phase 11-15 CHECKPOINT — Rust conversion complete, 13/13 everywhere (2026-11-13)
+
+**Status: `--mc 5` = 5/5 trials, all 13 milestones in every trial (terminal errors
+3.05-4.12 cm, mean 3.60 cm, on a MOVING target). Canonical run + dashboard rebuilt.**
+All controllers are native Rust (`Cargo.toml` workspace: `crates/webots_ffi`,
+`crates/swarm_core`, three controller crates; pure-Rust CV, zero OpenCV).
+Full conversion story: `RUST_BRINGUP_LOG.md`. Active roadmap: `ROADMAP_PHASES_11_15.md`.
+Python-era controllers/harness retired as `*_python_fallback.py` /
+`run_verification_python10.py` / `build_dashboard_python10.py`.
+
+### Bugs fixed in this phase (continues the cumulative bug log)
+
+- **#45 (Rust port) F2 hold-hover tumble, twice at t~151 s** — two compounding causes.
+  (a) With the Phase-14 moving target, the Stage-1 hold released whenever the target
+  drifted past the 7 m ring (`!primary_cleared && dist < HOLD_RING_M`), a hold/chase
+  limit cycle waiting to happen; the secondary now holds its frozen spot until the
+  primary announces its lock (115 s fallback unchanged). (b) The terminal boost
+  (gs -> 7.5) was engaged during ALL of Stage 1; a sustained hold chases the
+  OU-wandered setpoint (up to 0.35 m) with saturated commands — IDLE_HOVER never
+  diverged because its goal uses true position. Boost is now Stage-2-only
+  (`pid.max_terminal_boost = if state == "STAGE_2_VISUAL_HOMING" { 6.5 } else { 0.0 }`).
+- **#46 (Rust port) F1 macro-nav crawl (~0.13 m/s)** — the ported `scan_best_angle`
+  picked MAX clearance over the full +/-180 deg scan every call, deflecting the
+  effective goal wildly in the 13-building field. Restored the tuned Python-era
+  policy: greedy first angle with clearance >= 2.5 m (alternating sides), max
+  clearance only as fallback. F1 now cruises, reaches Stage 2, and locks.
+- **#47 harness wall-clock timeout** — 320 s killed healthy runs (realtime factor
+  ~0.55 under 400x400 camera loads; tracks.csv truncated mid-line, no
+  ground_truth.json). Raised to 600 s per trial.
+- **#48 cross-scale visual ID produced zero distinctive matches** — the ported
+  ORB-equivalent (FAST-9 + rotated BRIEF-256) had no scale pyramid; offline test
+  (`crates/swarm_core/examples/match_diag.rs`): same-scale 114/114 inliers, but
+  chip -> terminal-view ratio p50 = 0.94, 6 pairs / 0 inliers. Added a 4-level
+  scale pyramid (1.0/0.75/0.5/0.35, keypoints reported in original frame);
+  cross-view went to 59 good / 58 inliers. Milestone 2 passes 5/5.
+- **#49 M11 meta key mismatch** — builder wrote `buildings_placed`, harness reads
+  `real_osm_buildings_placed`; builder now writes both.
+- (Bring-up, pre-loop — see `RUST_BRINGUP_LOG.md`): `wb_supervisor_get_root` ->
+  `wb_supervisor_node_get_root` (R2025a rename); serde_json `float_roundtrip`
+  feature — the default fast float parser flipped f64s by 1 ulp on parse ->
+  re-serialize and silently broke packet CRC32 (regression example kept at
+  `crates/swarm_core/examples/crc_roundtrip.rs`); harness `FOLLOWER_2` KeyError.
+
+### Verified per Phase (all from `results_mc/` + `results/`)
+
+- **Phase 11 gate**: `--mc 5` 5/5, `mission_success: true` in every trial, missions
+  complete at t = 176-188 s.
+- **Phase 12 (M11)**: 13 real OSM buildings placed (Farragut Sq DC bbox), elevation
+  terrain, `min_building_clearance_m > 0.6` in every trial.
+- **Phase 13 (M12)**: `gnss_model == "ornstein_uhlenbeck"` on every lock; Scout LRF
+  Gaussian noise active; all 10 locks < 5 cm despite it (3.05-4.12 cm).
+- **Phase 14 (M13)**: ground target moves at [0.09, 0.06, 0] m/s after the mark;
+  displacement at mission end 11.48-12.70 m (gate >= 6 m); both followers track and
+  lock the moving plate < 5 cm; handoff packets carry `target_vel` and followers
+  feed forward relative velocity.
+- **Phase 15**: canonical run + `build_dashboard.py` regenerated (13-milestone HTML
+  with Rust step-latency table). `--mc 10` statistical benchmark = the one remaining
+  optional gate.

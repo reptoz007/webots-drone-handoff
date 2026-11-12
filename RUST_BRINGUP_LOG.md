@@ -87,3 +87,21 @@ modeling, lidar clustering (26k-34k hits/drone), 13-milestone grading.
 
 `cargo run --release -p swarm_core --example crc_roundtrip` must print
 `crc_valid = true` for both packets.
+
+## Phase 11 loop outcome (2026-11-13) — RESOLVED
+
+The two open failure signatures were root-caused and fixed in the first tuning
+iteration; full details in `PROJECT_HANDOVER.md` (bug log #45-#49):
+
+* **#45 F2 hold-hover tumble** -> Stage-1 hold no longer releases when the moving
+  target drifts past the 7 m ring, and the terminal boost is Stage-2-only.
+* **#46 F1 macro-nav crawl** -> greedy first-clear steering restored (the
+  max-clearance +-180 deg scan was the throttle).
+* **#47** harness wall-clock timeout 320 s -> 600 s (runs need ~RTF 0.55 x 190 s sim).
+* **#48** cross-scale visual ID: added a 4-level scale pyramid to
+  `extract_orb_features` (offline proof: `match_diag` example, 0 -> 58 inliers).
+* **#49** M11 meta key: builder now writes `real_osm_buildings_placed` too.
+
+Result: `--mc 5` = **5/5 trials, 13/13 milestones each**, terminal errors
+3.05-4.12 cm (mean 3.60 cm) on the moving target, missions complete t = 176-188 s.
+

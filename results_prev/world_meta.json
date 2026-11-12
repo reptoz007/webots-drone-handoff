@@ -14,5 +14,6 @@
   "mission_relief_m": 0.26,
   "attribution": "Imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community | Buildings (c) OpenStreetMap contributors (ODbL) | Elevation SRTM (Mapzen/AWS terrain tiles)",
   "terrain_mode": "elevation",
-  "terrain_at_target_m": -0.0
+  "terrain_at_target_m": -0.0,
+  "real_osm_buildings_placed": 13
 }

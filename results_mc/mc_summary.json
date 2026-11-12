@@ -1,23 +1,26 @@
 {
-  "n_trials": 3,
-  "all_passed": false,
-  "pass_count": 1,
+  "n_trials": 5,
+  "all_passed": true,
+  "pass_count": 5,
   "milestone_pass_rates": {
-    "1_raycast_precision": 3,
-    "2_reception_visual_id": 3,
-    "3_airspace_deconfliction": 3,
-    "4_drift_correction_visual_homing": 1,
-    "5_obstacle_avoidance": 3,
-    "6_live_gps_wander_ibvs": 1,
-    "7_mapless_sensor_avoidance": 3,
-    "8_degraded_radio_retransmission": 2,
-    "9_multi_obstacle_and_wind_rejection": 1,
-    "10_fiducial_geometry_verification": 2
+    "1_raycast_precision": 5,
+    "2_reception_visual_id": 5,
+    "3_airspace_deconfliction": 5,
+    "4_drift_correction_visual_homing": 5,
+    "5_obstacle_avoidance": 5,
+    "6_live_gps_wander_ibvs": 5,
+    "7_mapless_sensor_avoidance": 5,
+    "8_degraded_radio_retransmission": 5,
+    "9_multi_obstacle_and_wind_rejection": 5,
+    "10_fiducial_geometry_verification": 5,
+    "11_real_osm_urban_buildings": 5,
+    "12_stochastic_gnss_and_sensor_noise": 5,
+    "13_moving_target_tracking": 5
   },
   "terminal_error_m": {
-    "min": 0.028243557460914483,
-    "max": 0.07063375219293191,
-    "mean": 0.040997557158585635
+    "min": 0.030451582980309026,
+    "max": 0.04124083169508483,
+    "mean": 0.03598516984759233
   },
   "trials": [
     {
@@ -34,57 +37,116 @@
         "7_mapless_sensor_avoidance": true,
         "8_degraded_radio_retransmission": true,
         "9_multi_obstacle_and_wind_rejection": true,
-        "10_fiducial_geometry_verification": true
+        "10_fiducial_geometry_verification": true,
+        "11_real_osm_urban_buildings": true,
+        "12_stochastic_gnss_and_sensor_noise": true,
+        "13_moving_target_tracking": true
       },
       "terminal_errors_m": {
-        "Follower_Drone_01": 0.03180569621443358,
-        "Follower_Drone_02": 0.03330722276606256
+        "Follower_Drone_01": 0.033353370010265705,
+        "Follower_Drone_02": 0.03891412496536692
       },
-      "sim_time_s": 165.52
+      "sim_time_s": 183.88
     },
     {
       "seed": 1,
-      "mission_success": false,
-      "webots_exit_code": 1,
-      "milestones": {
-        "1_raycast_precision": true,
-        "2_reception_visual_id": true,
-        "3_airspace_deconfliction": true,
-        "4_drift_correction_visual_homing": false,
-        "5_obstacle_avoidance": true,
-        "6_live_gps_wander_ibvs": false,
-        "7_mapless_sensor_avoidance": true,
-        "8_degraded_radio_retransmission": false,
-        "9_multi_obstacle_and_wind_rejection": false,
-        "10_fiducial_geometry_verification": false
-      },
-      "terminal_errors_m": {
-        "Follower_Drone_01": null,
-        "Follower_Drone_02": null
-      },
-      "sim_time_s": 148.488
-    },
-    {
-      "seed": 2,
-      "mission_success": false,
+      "mission_success": true,
       "webots_exit_code": 0,
       "milestones": {
         "1_raycast_precision": true,
         "2_reception_visual_id": true,
         "3_airspace_deconfliction": true,
-        "4_drift_correction_visual_homing": false,
+        "4_drift_correction_visual_homing": true,
         "5_obstacle_avoidance": true,
-        "6_live_gps_wander_ibvs": false,
+        "6_live_gps_wander_ibvs": true,
         "7_mapless_sensor_avoidance": true,
         "8_degraded_radio_retransmission": true,
-        "9_multi_obstacle_and_wind_rejection": false,
-        "10_fiducial_geometry_verification": true
+        "9_multi_obstacle_and_wind_rejection": true,
+        "10_fiducial_geometry_verification": true,
+        "11_real_osm_urban_buildings": true,
+        "12_stochastic_gnss_and_sensor_noise": true,
+        "13_moving_target_tracking": true
       },
       "terminal_errors_m": {
-        "Follower_Drone_01": 0.07063375219293191,
-        "Follower_Drone_02": 0.028243557460914483
+        "Follower_Drone_01": 0.03564305537170059,
+        "Follower_Drone_02": 0.034394181976788465
       },
-      "sim_time_s": 166.328
+      "sim_time_s": 180.376
+    },
+    {
+      "seed": 2,
+      "mission_success": true,
+      "webots_exit_code": 0,
+      "milestones": {
+        "1_raycast_precision": true,
+        "2_reception_visual_id": true,
+        "3_airspace_deconfliction": true,
+        "4_drift_correction_visual_homing": true,
+        "5_obstacle_avoidance": true,
+        "6_live_gps_wander_ibvs": true,
+        "7_mapless_sensor_avoidance": true,
+        "8_degraded_radio_retransmission": true,
+        "9_multi_obstacle_and_wind_rejection": true,
+        "10_fiducial_geometry_verification": true,
+        "11_real_osm_urban_buildings": true,
+        "12_stochastic_gnss_and_sensor_noise": true,
+        "13_moving_target_tracking": true
+      },
+      "terminal_errors_m": {
+        "Follower_Drone_01": 0.030451582980309026,
+        "Follower_Drone_02": 0.03645072614011927
+      },
+      "sim_time_s": 188.208
+    },
+    {
+      "seed": 3,
+      "mission_success": true,
+      "webots_exit_code": 0,
+      "milestones": {
+        "1_raycast_precision": true,
+        "2_reception_visual_id": true,
+        "3_airspace_deconfliction": true,
+        "4_drift_correction_visual_homing": true,
+        "5_obstacle_avoidance": true,
+        "6_live_gps_wander_ibvs": true,
+        "7_mapless_sensor_avoidance": true,
+        "8_degraded_radio_retransmission": true,
+        "9_multi_obstacle_and_wind_rejection": true,
+        "10_fiducial_geometry_verification": true,
+        "11_real_osm_urban_buildings": true,
+        "12_stochastic_gnss_and_sensor_noise": true,
+        "13_moving_target_tracking": true
+      },
+      "terminal_errors_m": {
+        "Follower_Drone_01": 0.04124083169508483,
+        "Follower_Drone_02": 0.03472692972164173
+      },
+      "sim_time_s": 178.15200000000002
+    },
+    {
+      "seed": 4,
+      "mission_success": true,
+      "webots_exit_code": 0,
+      "milestones": {
+        "1_raycast_precision": true,
+        "2_reception_visual_id": true,
+        "3_airspace_deconfliction": true,
+        "4_drift_correction_visual_homing": true,
+        "5_obstacle_avoidance": true,
+        "6_live_gps_wander_ibvs": true,
+        "7_mapless_sensor_avoidance": true,
+        "8_degraded_radio_retransmission": true,
+        "9_multi_obstacle_and_wind_rejection": true,
+        "10_fiducial_geometry_verification": true,
+        "11_real_osm_urban_buildings": true,
+        "12_stochastic_gnss_and_sensor_noise": true,
+        "13_moving_target_tracking": true
+      },
+      "terminal_errors_m": {
+        "Follower_Drone_01": 0.03699594244575952,
+        "Follower_Drone_02": 0.03768095316888716
+      },
+      "sim_time_s": 176.312
     }
   ]
 }

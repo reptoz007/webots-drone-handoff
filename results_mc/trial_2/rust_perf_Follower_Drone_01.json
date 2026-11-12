@@ -1,0 +1,7 @@
+{
+  "drone_id": "Follower_Drone_01",
+  "total_steps": 23499,
+  "mean_step_us": 571.171411549427,
+  "p99_step_us": 4352.3,
+  "max_step_us": 37943.299999999996
+}

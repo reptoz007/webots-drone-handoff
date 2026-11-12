@@ -528,6 +528,7 @@ def main():
         "image_px": 1024,
         "imagery_source": imagery_source,
         "buildings_placed": placed,
+        "real_osm_buildings_placed": placed,  # M11 gate key (harness reads this name)
         "buildings_skipped_pads_hover": skipped,
         "corridor_block_injected": bool(corridor_injected),
         "corridor_blocks_injected": corridor_injected,

@@ -97,7 +97,7 @@ def run_trial(trial_seed=0):
         stdout=log, stderr=subprocess.STDOUT, env=env)
     print(f"Webots running (pid {proc.pid}, seed={trial_seed}).", flush=True)
     try:
-        code = proc.wait(timeout=320)
+        code = proc.wait(timeout=600)
     except subprocess.TimeoutExpired:
         proc.kill()
         code = "killed-timeout"

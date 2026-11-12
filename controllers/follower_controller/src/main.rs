@@ -364,7 +364,12 @@ fn main() {
                     }
                 }
 
-                let nav_goal = if !primary_cleared && dist < HOLD_RING_M {
+                let nav_goal = if !primary_cleared {
+                    // Bug #45 follow-up: with the Phase-14 moving target, the old
+                    // ring-distance gate released the hold whenever the target
+                    // drifted past 7 m, producing a hold/chase limit cycle around
+                    // the ring boundary. The secondary now holds its frozen spot
+                    // until the primary announces its lock (or the 115 s fallback).
                     if hold_xy.is_none() {
                         let candidate = if nav.park_spot_field_free([true_pos[0], true_pos[1]]) {
                             [true_pos[0], true_pos[1]]
@@ -379,7 +384,7 @@ fn main() {
                     hold_xy.unwrap()
                 } else {
                     hold_xy = None;
-                    if dist < 4.5 && primary_cleared {
+                    if dist < 4.5 {
                         state = "STAGE_2_VISUAL_HOMING";
                         rel_target_xy = Some([tgt_xy[0] - cur_x, tgt_xy[1] - cur_y]);
                     }
@@ -627,6 +632,15 @@ fn main() {
                 (eff[0] - cur_x, eff[1] - cur_y, (vx[0] - cur_x).hypot(vx[1] - cur_y), cruise_alt, 0.0)
             }
         };
+
+        // Bug #45: the terminal boost exists for Stage-2 precision only. A sustained
+        // Stage-1 hold chases the OU-wandered setpoint (up to 0.35 m) with saturated
+        // commands at full boost and limit-cycled the attitude loop — the drone
+        // tumbled from a stable hover at t ~ 151 s in two consecutive runs. Stage 1
+        // / IDLE / VACATE fly at plain cruise gain; Stage 2 gets the full 6.5x boost
+        // exactly when terminal precision is needed (its own gates only ramp the
+        // boost inside the last 2 m anyway).
+        pid.max_terminal_boost = if state == "STAGE_2_VISUAL_HOMING" { 6.5 } else { 0.0 };
 
         // Feed-forward target velocity into the relative velocity damping in Stage 2
         let rel_vel = if state == "STAGE_2_VISUAL_HOMING" {

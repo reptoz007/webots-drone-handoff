@@ -349,12 +349,20 @@ impl LidarVfhNavigator {
     }
 
     fn scan_best_angle(x: f64, y: f64, lead: f64, base: f64, boxes: &[(f64, f64, f64, f64, f64, f64)]) -> f64 {
+        // Greedy first-clear (bug #46): take the smallest deviation from base that
+        // satisfies STEER_CLEAR_M, alternating sides — the max-clearance choice over
+        // the full +/-180 deg scan deflected the effective goal wildly in the dense
+        // building field and throttled macro-nav to ~0.13 m/s. Max clearance is only
+        // the fallback when nothing is clear.
         let mut best_clear = -1.0;
         let mut best_ang = base;
         for k in 1..=12 {
             for sign in [1.0, -1.0] {
                 let ang = base + sign * (k as f64) * STEER_STEP_RAD;
                 let clear = Self::probe_clearance(x + lead * ang.cos(), y + lead * ang.sin(), boxes);
+                if clear >= STEER_CLEAR_M {
+                    return ang;
+                }
                 if clear > best_clear {
                     best_clear = clear;
                     best_ang = ang;

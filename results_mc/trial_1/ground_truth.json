@@ -1,32 +1,50 @@
 {
-  "outcome": "crash:FOLLOWER_2",
-  "sim_time_s": 148.488,
-  "true_target_xyz": [
+  "outcome": "mission_complete",
+  "sim_time_s": 180.376,
+  "initial_target_xyz": [
     6.0,
     4.0,
     0.05
   ],
-  "final_positions": {
-    "SCOUT": [
-      8.506424490127019,
-      3.995623782148794,
-      5.490252017555443
+  "true_target_xyz": [
+    16.123919999994165,
+    10.749279999994261,
+    0.05
+  ],
+  "target_displacement_m": 12.167437556223758,
+  "lock_true_targets": {
+    "Follower_Drone_01": [
+      12.831359999996659,
+      8.554239999996128,
+      0.05
     ],
+    "Follower_Drone_02": [
+      15.943199999994013,
+      10.628799999994364,
+      0.05
+    ]
+  },
+  "final_positions": {
     "FOLLOWER_1": [
-      6.040487718399506,
-      3.986089080232798,
-      4.488000746966253
+      15.665915735689696,
+      9.50079345418507,
+      4.497158185007652
     ],
     "FOLLOWER_2": [
-      4.128414227220574,
-      9.157491470692294,
-      0.1460354690742799
+      16.73539973597001,
+      10.896668025039462,
+      6.485573190781571
+    ],
+    "SCOUT": [
+      15.002686406530241,
+      10.000013955506883,
+      5.496983452736237
     ]
   },
   "wind_gust_active": true,
   "wind_model": {
     "steady_crosswind_n": [
-      0.014,
+      0.013999999999999999,
       -0.01,
       0.0
     ],
@@ -34,7 +52,6 @@
     "gust_amp_z_n": 0.004,
     "applied_while_z_gt_m": 1.0,
     "wind_scale_vs_spec": 0.04,
-    "mc_seed": 1,
-    "description": "Dryden-style: steady crosswind plus multi-frequency sinusoidal gusts via node.addForce on every drone above 1.0 m. Spec forces scaled x0.04 for the 0.1 kg PROTO mass and the cascade's rejection authority (bug #31) \u2014 see the supervisor."
+    "mc_seed": 1
   }
 }

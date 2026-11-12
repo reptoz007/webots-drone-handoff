@@ -1,13 +1,8 @@
 {
   "drone_id": "Follower_Drone_01",
   "use_json_map_in_controller": false,
-  "sensor_hits_count": 27720,
-  "sensed_obstacle_centroids": [
-    [
-      3.35,
-      1.59
-    ]
-  ],
-  "active_clusters": 1,
-  "sim_time_s": 148.0
+  "sensor_hits_count": 22556,
+  "sensed_obstacle_centroids": [],
+  "active_clusters": 0,
+  "sim_time_s": 180.0
 }

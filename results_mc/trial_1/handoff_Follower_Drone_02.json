@@ -2,37 +2,42 @@
   "drone": "Follower_Drone_02",
   "scout_id": "Scout_Drone_01",
   "scout_gps": [
-    6.311014997204181,
-    4.333742588774206,
-    5.3380956799224855
+    6.586763601799346,
+    4.002125910774973,
+    5.347733019636781
   ],
   "target_gps": [
-    6.649791598451129,
-    3.466127184031767,
-    0.150064462444204
+    6.8165373217859635,
+    3.559798825220204,
+    0.15600529273277333
   ],
-  "approach_bearing_deg": 2.5110902329815383,
-  "distance_at_receipt_m": 10.658915700980709,
-  "ref_orb_features": 51,
-  "packet_bytes": 11031,
+  "target_vel": [
+    0.09,
+    0.06,
+    0.0
+  ],
+  "approach_bearing_deg": 3.0012055832392535,
+  "distance_at_receipt_m": 10.811089032427468,
+  "ref_orb_features": 300,
+  "packet_bytes": 11502,
   "packet_seq": 2,
-  "packet_tx_time_s": 73.64,
+  "packet_tx_time_s": 69.896,
   "packet_crc_valid": true,
   "dropped_packets": [
     {
       "seq": 0,
-      "tx_time_s": 71.64,
-      "rx_time_s": 71.648,
+      "tx_time_s": 67.896,
+      "rx_time_s": 67.904,
       "reason": "link_drop_emulated"
     },
     {
       "seq": 1,
-      "tx_time_s": 72.64,
-      "rx_time_s": 72.648,
+      "tx_time_s": 68.896,
+      "rx_time_s": 68.904,
       "reason": "link_drop_emulated"
     }
   ],
   "decode_latency_ms": 120.0,
   "receipt_lag_from_mark_ms": 2007.9999999999955,
-  "sim_time_s": 73.648
+  "sim_time_s": 69.904
 }

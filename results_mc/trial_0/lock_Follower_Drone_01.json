@@ -1,43 +1,44 @@
 {
   "drone": "Follower_Drone_01",
   "gps": [
-    6.031727937781961,
-    3.9977773268821366,
-    4.490846472384225
+    12.981775428668328,
+    8.63817348382764,
+    4.490744400136682
   ],
   "perceived_gps_at_lock": [
-    6.075392161600959,
-    4.249506961136047,
-    4.490846472384225
+    12.536178594327417,
+    8.770011761171512,
+    4.490744400136682
   ],
   "noisy_target_gps": [
-    6.64815264307585,
-    3.467625259276182,
-    0.15010585823232556
+    6.750478720424472,
+    3.5022646182176005,
+    0.13578726682873124
   ],
   "refined_target_xy": [
-    6.016557188234669,
-    4.019138472949225
+    12.961121516634059,
+    8.662045985688817
   ],
   "rel_target_xy": [
-    -0.015170749547291263,
-    0.021361146067088797
+    -0.031490227440107335,
+    -0.01099149065468385
   ],
   "stage2_triggered": true,
-  "homing_update_count": 720,
-  "last_red_seen_sim_time": 147.112,
-  "max_gps_wander_m": 0.5080683472796053,
+  "homing_update_count": 2084,
+  "last_red_seen_sim_time": 147.864,
+  "gnss_model": "ornstein_uhlenbeck",
+  "max_gps_wander_m": 1.0745199420435032,
   "gps_wander_at_lock_xy": [
-    0.04366422381899823,
-    0.25172963425391115
+    -0.4455968343409114,
+    0.13183827734387216
   ],
   "handoff_packet_seq": 1,
   "handoff_crc_valid": true,
   "fiducial_verified": true,
-  "fiducial_target_yaw_deg": 45.69584415511783,
-  "fiducial_marker_separation_m": 1.164307360106462,
-  "terminal_error_m": 0.03180569621443358,
+  "fiducial_target_yaw_deg": 45.83556911087526,
+  "fiducial_marker_separation_m": 1.1687511899296794,
+  "terminal_error_m": 0.033353370010265705,
   "visual_id_confirmed": true,
-  "sim_time_s": 147.112,
-  "time_handoff_to_lock_s": 75.44
+  "sim_time_s": 147.864,
+  "time_handoff_to_lock_s": 76.232
 }
