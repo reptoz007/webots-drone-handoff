@@ -1,0 +1,7 @@
+{
+  "drone_id": "Scout_Drone_01",
+  "total_steps": 22249,
+  "mean_step_us": 854.9755944087366,
+  "p99_step_us": 5390.200000000001,
+  "max_step_us": 8142.5
+}

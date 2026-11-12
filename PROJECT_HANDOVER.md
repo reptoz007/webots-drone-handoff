@@ -3533,3 +3533,90 @@ Python-era controllers/harness retired as `*_python_fallback.py` /
 - **Phase 15**: canonical run + `build_dashboard.py` regenerated (13-milestone HTML
   with Rust step-latency table). `--mc 10` statistical benchmark = the one remaining
   optional gate.
+
+---
+
+## Phase 15 FINAL — `--mc 10` statistical benchmark PASSED (2026-11-13)
+
+**All 15 phases complete.** `--mc 10` = **10/10 trials, 13/13 milestones in every
+trial** (`results_mc/mc_summary.json`, `all_passed: true`).
+
+### Bug #50 (last fix of the phase) — fiducial evidence at the lock instant
+Single-instant `verify_fiducial()` probes at lock missed on F2 (its black markers
+are ~150 px^2 at 6.5 m altitude, so one noisy frame early-returns None — trial 5 of
+the first mc-10 run failed ONLY milestone 10 while its lock was 3.32 cm). The
+follower now records the best fiducial geometry observed across the ~180-step
+verified hover (prefer fully-verified reads, else any read with geometry) and
+reports that at lock. Fixed run: 10/10.
+
+### `--mc 10` statistical distribution (20 follower locks)
+- Terminal error: **min 2.83 cm | mean 3.59 cm | max 4.12 cm** (gate: < 5 cm)
+- Mission completion: sim t = 172-188 s in every trial (timeout 240 s)
+- Moving-target displacement at mission end: 11.5-12.7 m (gate: >= 6 m)
+- Milestone pass rates: 13/13 milestones x 10/10 trials (no exceptions)
+
+### 13-milestone summary table (all 10/10)
+| # | Milestone | Gate | Result |
+|---|-----------|------|--------|
+| 1 | Raycast precision | < 5 cm horiz, < 5 cm z | PASS (mm-level, 60-sample average) |
+| 2 | Reception + visual ID | >= 15 ref ORB feats + confirmed | PASS (multi-scale, ~330 feats) |
+| 3 | Airspace deconfliction | scout clears before follower terminal | PASS |
+| 4 | Drift correction / IBVS homing | stage2 + < 5 cm | PASS |
+| 5 | Obstacle avoidance | min clearance > 0.6 m, lateral > 2 m | PASS |
+| 6 | Live GPS wander + IBVS | wander >= 0.30 m, < 5 cm | PASS (OU walk) |
+| 7 | Mapless 5-beam avoidance | >= 15 hits/drone, no JSON map | PASS (26k-34k hits) |
+| 8 | Degraded radio | F1 drops seq 0, F2 seq 0+1, CRC valid | PASS (exact emulation) |
+| 9 | Multi-obstacle + wind | >= 2 obstacles + wind + < 5 cm | PASS |
+| 10 | Fiducial geometry | yaw 45.7 deg +/- 25, sep 1.17 m +/- 0.45 | PASS (best-of-hover) |
+| 11 | Real OSM urban buildings | >= 5 real + clearance > 0.6 m | PASS (13 buildings, elevation) |
+| 12 | Stochastic GNSS + sensor noise | OU model + < 5 cm | PASS |
+| 13 | Moving target tracking | >= 6 m displacement + < 5 cm | PASS |
+
+### Rust microsecond latency benchmark (canonical run, 8 ms control loop,
+### 22,749 steps each — `results/rust_perf_*.json`)
+| Controller | Mean step | P99 step | Max step |
+|------------|-----------|----------|----------|
+| Scout_Drone_01 | 750.8 us | 5,078.5 us | 11,372 us |
+| Follower_Drone_01 | 961.9 us | 10,055.7 us | 60,322 us |
+| Follower_Drone_02 | 611.1 us | 5,835.7 us | 65,969 us |
+
+Means are 8-13x inside the 8,000 us budget; p99/max spikes are the multi-scale
+ORB ID attempts over 400x400 frames, which run off the attitude-critical path.
+
+### Complete final Rust source map (all in this repository)
+- `Cargo.toml` — workspace root (release LTO, codegen-units 1)
+- `crates/webots_ffi/` — `build.rs` (links Webots R2025a `Controller.lib` via
+  WEBOTS_HOME), `src/lib.rs` (safe wrappers: Robot, Motor, Gps, InertialUnit,
+  Gyro, Camera, DistanceSensor, Emitter, Receiver, Supervisor incl. field
+  get/set vec3f, add_force, node_get_root scene dump)
+- `crates/swarm_core/src/protocol.rs` — HandoffPacket: JPEG(85) + base64 + JSON +
+  CRC32 canonicalization (`float_roundtrip` serde_json), `target_vel` back-compat
+- `crates/swarm_core/src/vision.rs` — BGRA->RGB, OpenCV-convention HSV, BFS red
+  blobs, convex hull + rotating calipers minAreaRect, FAST-9 + rotated BRIEF-256
+  with 4-level scale pyramid, Lowe 0.8 + RANSAC homography, clip-guarded fiducial
+  verifier with midpoint
+- `crates/swarm_core/src/control.rs` — 5-beam lidar clustering (eps 2.2 m, TTL 6 s,
+  merge 3 m, inflate 0.3 m), VFH-lite greedy steering (lead 1.6 m, clear 2.5 m,
+  rate 2.0 rad/s, terminal exemption 3.5 m), Mavic cascaded PID (boost 11 scout /
+  6.5 follower, Stage-2-only), Ornstein-Uhlenbeck GNSS walk, StepTimer
+- `crates/swarm_core/examples/` — `crc_roundtrip.rs` (protocol regression),
+  `match_diag.rs` (matcher diagnostic)
+- `controllers/scout_controller/src/main.rs` — takeoff/search/mark/raycast
+  averaging/LRF noise/broadcast + 1 Hz re-broadcast with advancing target
+- `controllers/follower_controller/src/main.rs` — IDLE/Stage1(hold-ring sequenced
+  corridor)/Stage2(IBVS + fiducial consensus + best-of-hover evidence)/Vacate,
+  OU wander, drop emulation, moving-target prediction + relative-velocity
+  feed-forward
+- `controllers/metrics_supervisor/src/main.rs` — wind model (x0.04 scale),
+  moving Ground_Target via translation field, crash/complete/timeout finalize,
+  tracks.csv + wind_log.csv, 13-milestone evidence collection
+- `run_verification.py` (auto cargo build + deploy + 13-milestone grading +
+  `--mc N`), `build_dashboard.py`, `build_realmap_world.py`, `worlds/*.wbt`
+
+### How to reproduce
+```
+python build_realmap_world.py
+python run_verification.py worlds/drone_handoff_realmap.wbt            # canonical, 13/13
+python run_verification.py worlds/drone_handoff_realmap.wbt --mc 10    # 10/10 x 13/13
+python build_dashboard.py
+```

@@ -190,6 +190,11 @@ fn main() {
     let mut last_red_seen = -1.0;
     let mut stall_reject_streak = 0usize;
     let mut fiducial_streak = 0usize;
+    // Bug #50: at the lock instant a single fiducial probe can miss (F2's markers
+    // are ~150 px^2 at 6.5 m altitude, so one noisy frame early-returns None).
+    // Keep the best geometry observed during the terminal hover and report that
+    // at lock — the hover is verified over ~180 steps, so should the evidence be.
+    let mut fid_best: Option<swarm_core::vision::FiducialResult> = None;
 
     let mut primary_cleared = is_primary;
     let mut hold_xy: Option<[f64; 2]> = None;
@@ -456,6 +461,14 @@ fn main() {
                     // Consensus-gated fiducial precision aid (3-frame streak + 0.10 m outlier check)
                     if vdist0 < 1.2 && step_count % 5 == 0 {
                         let f_res = verify_fiducial(&term_rgb, invert_rel);
+                        // Bug #50: remember the best geometry seen during the hover —
+                        // prefer a fully-verified read, else any read with geometry.
+                        if f_res.verified
+                            || (f_res.target_yaw_deg.is_some()
+                                && fid_best.as_ref().map_or(true, |b| !b.verified))
+                        {
+                            fid_best = Some(f_res.clone());
+                        }
                         if f_res.verified {
                             if let Some(f_mid) = f_res.midpoint_rel {
                                 let cur_rel = rel_target_xy.unwrap();
@@ -564,7 +577,12 @@ fn main() {
                     if lock_streak >= 180 && homing_update_count > 0 && !lock_achieved_logged {
                         lock_achieved_logged = true;
                         // Compare drone's true position against the plate's true world position (true_pos + rel_camera_measured)
-                        let fid = verify_fiducial(&term_rgb, invert_rel);
+                        // Bug #50: report the best fiducial geometry seen during the
+                        // hover; only re-probe if the whole hover saw nothing.
+                        let fid = match fid_best {
+                            Some(ref f) if f.verified || f.target_yaw_deg.is_some() => f.clone(),
+                            _ => verify_fiducial(&term_rgb, invert_rel),
+                        };
                         let plate_true_est = if let Some(mid) = fid.midpoint_rel {
                             [true_pos[0] + mid[0], true_pos[1] + mid[1]]
                         } else {

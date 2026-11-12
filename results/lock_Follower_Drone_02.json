@@ -1,14 +1,14 @@
 {
   "drone": "Follower_Drone_02",
   "gps": [
-    16.051800290372885,
-    10.675930301689522,
-    6.493080879491989
+    16.051800290373013,
+    10.675930301689801,
+    6.4930808794919885
   ],
   "perceived_gps_at_lock": [
-    16.1749602734107,
-    10.529545768468878,
-    6.493080879491989
+    16.17496027341083,
+    10.529545768469157,
+    6.4930808794919885
   ],
   "noisy_target_gps": [
     6.840478720424472,
@@ -16,12 +16,12 @@
     0.13578726682873124
   ],
   "refined_target_xy": [
-    16.023757674233302,
-    10.70572414778454
+    16.02223197160294,
+    10.707256040448497
   ],
   "rel_target_xy": [
-    -0.038846708876058296,
-    -0.002289613792589802
+    -0.03884670887605454,
+    -0.0022896137925987508
   ],
   "stage2_triggered": true,
   "homing_update_count": 2075,
@@ -35,9 +35,9 @@
   "handoff_packet_seq": 2,
   "handoff_crc_valid": true,
   "fiducial_verified": true,
-  "fiducial_target_yaw_deg": 45.67018970269426,
-  "fiducial_marker_separation_m": 1.1710482089045442,
-  "terminal_error_m": 0.038914124965370146,
+  "fiducial_target_yaw_deg": 45.89940692247496,
+  "fiducial_marker_separation_m": 1.1679747317827782,
+  "terminal_error_m": 0.03891412496536692,
   "visual_id_confirmed": true,
   "sim_time_s": 181.864,
   "time_handoff_to_lock_s": 109.232

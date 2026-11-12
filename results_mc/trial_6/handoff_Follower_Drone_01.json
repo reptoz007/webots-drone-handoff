@@ -1,0 +1,37 @@
+{
+  "drone": "Follower_Drone_01",
+  "scout_id": "Scout_Drone_01",
+  "scout_gps": [
+    6.198586688029649,
+    3.9236970055268454,
+    4.751786758092441
+  ],
+  "target_gps": [
+    6.755000186833657,
+    3.480647692966715,
+    0.14649692424550845
+  ],
+  "target_vel": [
+    0.09,
+    0.06,
+    0.0
+  ],
+  "approach_bearing_deg": 31.129735908439123,
+  "distance_at_receipt_m": 12.55162067018295,
+  "ref_orb_features": 299,
+  "packet_bytes": 11666,
+  "packet_seq": 1,
+  "packet_tx_time_s": 73.0,
+  "packet_crc_valid": true,
+  "dropped_packets": [
+    {
+      "seq": 0,
+      "tx_time_s": 72.0,
+      "rx_time_s": 72.008,
+      "reason": "link_drop_emulated"
+    }
+  ],
+  "decode_latency_ms": 0.0,
+  "receipt_lag_from_mark_ms": 1007.9999999999956,
+  "sim_time_s": 73.008
+}

@@ -1,0 +1,57 @@
+{
+  "outcome": "mission_complete",
+  "sim_time_s": 185.648,
+  "initial_target_xyz": [
+    6.0,
+    4.0,
+    0.05
+  ],
+  "true_target_xyz": [
+    16.248479999994366,
+    10.83231999999419,
+    0.05
+  ],
+  "target_displacement_m": 12.317140045181151,
+  "lock_true_targets": {
+    "Follower_Drone_02": [
+      16.067759999994074,
+      10.711839999994293,
+      0.05
+    ],
+    "Follower_Drone_01": [
+      12.93503999999657,
+      8.623359999996069,
+      0.05
+    ]
+  },
+  "final_positions": {
+    "FOLLOWER_2": [
+      16.835701769058865,
+      10.964543232518887,
+      6.490516730940014
+    ],
+    "FOLLOWER_1": [
+      15.788466466962014,
+      9.555249583537414,
+      4.502495875025411
+    ],
+    "SCOUT": [
+      15.000041427273228,
+      10.001405706466603,
+      5.502676551986821
+    ]
+  },
+  "wind_gust_active": true,
+  "wind_model": {
+    "steady_crosswind_n": [
+      0.013999999999999999,
+      -0.01,
+      0.0
+    ],
+    "gust_amp_xy_n": 0.01,
+    "gust_amp_z_n": 0.004,
+    "applied_while_z_gt_m": 1.0,
+    "wind_scale_vs_spec": 0.04,
+    "mc_seed": 7
+  }
+}

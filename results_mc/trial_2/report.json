@@ -1,7 +1,7 @@
 {
   "mission_success": true,
   "webots_exit_code": 0,
-  "real_elapsed_s": 265.8,
+  "real_elapsed_s": 307.3,
   "mc_seed": 2,
   "milestones": {
     "1_raycast_precision": true,
@@ -112,8 +112,8 @@
           0.14263423636683284
         ],
         "refined_target_xy": [
-          13.191932800204844,
-          8.814458022687468
+          13.192024213853879,
+          8.814700456678448
         ],
         "rel_target_xy": [
           -0.028345120493293602,
@@ -131,8 +131,8 @@
         "handoff_packet_seq": 1,
         "handoff_crc_valid": true,
         "fiducial_verified": true,
-        "fiducial_target_yaw_deg": 45.79642814008699,
-        "fiducial_marker_separation_m": 1.1667694822462376,
+        "fiducial_target_yaw_deg": 45.82915782899311,
+        "fiducial_marker_separation_m": 1.1659653490335151,
         "terminal_error_m": 0.030451582980309026,
         "visual_id_confirmed": true,
         "sim_time_s": 150.616,
@@ -206,8 +206,8 @@
           0.14263423636683284
         ],
         "refined_target_xy": [
-          16.393670399107613,
-          10.953248860982722
+          16.393020225362054,
+          10.953026294507401
         ],
         "rel_target_xy": [
           -0.03446956903053254,
@@ -225,8 +225,8 @@
         "handoff_packet_seq": 2,
         "handoff_crc_valid": true,
         "fiducial_verified": true,
-        "fiducial_target_yaw_deg": 45.79079434870409,
-        "fiducial_marker_separation_m": 1.1698737478596648,
+        "fiducial_target_yaw_deg": 45.7436314690806,
+        "fiducial_marker_separation_m": 1.1683910892531642,
         "terminal_error_m": 0.03645072614011927,
         "visual_id_confirmed": true,
         "sim_time_s": 186.192,
@@ -254,32 +254,32 @@
     ],
     "target_displacement_m": 12.69615559525825,
     "lock_true_targets": {
-      "Follower_Drone_01": [
-        13.181279999996361,
-        8.78751999999593,
-        0.05
-      ],
       "Follower_Drone_02": [
         16.383119999994584,
         10.922079999994114,
         0.05
+      ],
+      "Follower_Drone_01": [
+        13.181279999996361,
+        8.78751999999593,
+        0.05
       ]
     },
     "final_positions": {
-      "FOLLOWER_2": [
-        17.143687932050923,
-        11.18247077834924,
-        6.482051489315128
+      "SCOUT": [
+        14.99893718389742,
+        10.000974102817779,
+        5.494134664508847
       ],
       "FOLLOWER_1": [
         15.990907261351314,
         9.724695604897558,
         4.4939346660322865
       ],
-      "SCOUT": [
-        14.99893718389742,
-        10.000974102817779,
-        5.494134664508847
+      "FOLLOWER_2": [
+        17.143687932050923,
+        11.18247077834924,
+        6.482051489315128
       ]
     },
     "wind_gust_active": true,
@@ -300,23 +300,23 @@
     "Scout_Drone_01": {
       "drone_id": "Scout_Drone_01",
       "total_steps": 23499,
-      "mean_step_us": 396.95506191752816,
-      "p99_step_us": 1714.6,
-      "max_step_us": 6283.3
+      "mean_step_us": 526.471666879442,
+      "p99_step_us": 3480.0,
+      "max_step_us": 14776.6
     },
     "Follower_Drone_01": {
       "drone_id": "Follower_Drone_01",
       "total_steps": 23499,
-      "mean_step_us": 571.171411549427,
-      "p99_step_us": 4352.3,
-      "max_step_us": 37943.299999999996
+      "mean_step_us": 1178.9430869398693,
+      "p99_step_us": 21562.8,
+      "max_step_us": 143902.0
     },
     "Follower_Drone_02": {
       "drone_id": "Follower_Drone_02",
       "total_steps": 23499,
-      "mean_step_us": 343.89526788373956,
-      "p99_step_us": 2613.4,
-      "max_step_us": 48131.2
+      "mean_step_us": 587.7305034256783,
+      "p99_step_us": 4564.8,
+      "max_step_us": 143682.0
     }
   },
   "milestone_5_detail": {
@@ -378,14 +378,14 @@
   "milestone_13_detail": {
     "target_displacement_m": 12.69615559525825,
     "lock_true_targets": {
-      "Follower_Drone_01": [
-        13.181279999996361,
-        8.78751999999593,
-        0.05
-      ],
       "Follower_Drone_02": [
         16.383119999994584,
         10.922079999994114,
+        0.05
+      ],
+      "Follower_Drone_01": [
+        13.181279999996361,
+        8.78751999999593,
         0.05
       ]
     }

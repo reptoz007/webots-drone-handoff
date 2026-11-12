@@ -1,0 +1,12 @@
+{
+  "drone": "Follower_Drone_02",
+  "gps": [
+    -1.2898550934717956,
+    6.35991012774481,
+    6.5053884537439846
+  ],
+  "orb_good_matches": 11,
+  "ransac_inliers": 9,
+  "red_target_area_px": 1045.0,
+  "sim_time_s": 93.664
+}

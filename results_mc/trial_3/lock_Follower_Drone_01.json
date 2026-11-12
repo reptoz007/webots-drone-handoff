@@ -16,8 +16,8 @@
     0.15346592070993237
   ],
   "refined_target_xy": [
-    12.531750285307936,
-    8.375887159391583
+    12.531794116237485,
+    8.375977388401905
   ],
   "rel_target_xy": [
     -0.04021237000280396,
@@ -35,8 +35,8 @@
   "handoff_packet_seq": 1,
   "handoff_crc_valid": true,
   "fiducial_verified": true,
-  "fiducial_target_yaw_deg": 45.84144290422521,
-  "fiducial_marker_separation_m": 1.163663576430749,
+  "fiducial_target_yaw_deg": 45.797750121117794,
+  "fiducial_marker_separation_m": 1.164975292407023,
   "terminal_error_m": 0.04124083169508483,
   "visual_id_confirmed": true,
   "sim_time_s": 143.256,

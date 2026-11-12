@@ -1,0 +1,393 @@
+{
+  "mission_success": true,
+  "webots_exit_code": 0,
+  "real_elapsed_s": 274.5,
+  "mc_seed": 7,
+  "milestones": {
+    "1_raycast_precision": true,
+    "2_reception_visual_id": true,
+    "3_airspace_deconfliction": true,
+    "4_drift_correction_visual_homing": true,
+    "5_obstacle_avoidance": true,
+    "6_live_gps_wander_ibvs": true,
+    "7_mapless_sensor_avoidance": true,
+    "8_degraded_radio_retransmission": true,
+    "9_multi_obstacle_and_wind_rejection": true,
+    "10_fiducial_geometry_verification": true,
+    "11_real_osm_urban_buildings": true,
+    "12_stochastic_gnss_and_sensor_noise": true,
+    "13_moving_target_tracking": true
+  },
+  "mark": {
+    "scout_gps": [
+      6.026877856895579,
+      3.96505099280947,
+      4.490973805611509
+    ],
+    "scout_yaw": -0.8832375758965287,
+    "target_gps": [
+      6.6718422680595575,
+      3.4140028481828324,
+      0.16899096337124536
+    ],
+    "target_gps_clean": [
+      6.021842268059557,
+      3.9640028481828327,
+      0.16899096337124536
+    ],
+    "target_vel_est": [
+      0.09,
+      0.06,
+      0.0
+    ],
+    "gps_drift_injected_xy": [
+      0.65,
+      -0.55
+    ],
+    "direction_vector": [
+      -0.000873253753163204,
+      -0.0004125561919741401,
+      -0.9999995336125267
+    ],
+    "lrf_range_m": 4.340987619299088,
+    "packet_bytes": 11524,
+    "chip_target_area_px": 4277.0,
+    "raycast_samples": 61,
+    "sim_time_s": 71.776
+  },
+  "followers": {
+    "Follower_Drone_01": {
+      "handoff": {
+        "drone": "Follower_Drone_01",
+        "scout_id": "Scout_Drone_01",
+        "scout_gps": [
+          6.199099642123028,
+          3.935087828006625,
+          4.725151090384548
+        ],
+        "target_gps": [
+          6.761842268059557,
+          3.4740028481828324,
+          0.16899096337124536
+        ],
+        "target_vel": [
+          0.09,
+          0.06,
+          0.0
+        ],
+        "approach_bearing_deg": 30.992803970083962,
+        "distance_at_receipt_m": 12.567544456689685,
+        "ref_orb_features": 308,
+        "packet_bytes": 11519,
+        "packet_seq": 1,
+        "packet_tx_time_s": 72.776,
+        "packet_crc_valid": true,
+        "dropped_packets": [
+          {
+            "seq": 0,
+            "tx_time_s": 71.776,
+            "rx_time_s": 71.784,
+            "reason": "link_drop_emulated"
+          }
+        ],
+        "decode_latency_ms": 0.0,
+        "receipt_lag_from_mark_ms": 1008.0000000000098,
+        "sim_time_s": 72.784
+      },
+      "lock": {
+        "drone": "Follower_Drone_01",
+        "gps": [
+          12.961767054232649,
+          8.632443232980547,
+          4.4968205590356884
+        ],
+        "perceived_gps_at_lock": [
+          12.707083421770541,
+          8.108915268524141,
+          4.4968205590356884
+        ],
+        "noisy_target_gps": [
+          6.761842268059557,
+          3.4740028481828324,
+          0.16899096337124536
+        ],
+        "refined_target_xy": [
+          12.944003310202076,
+          8.651092685322752
+        ],
+        "rel_target_xy": [
+          -0.036168833271252546,
+          -0.007803693107424603
+        ],
+        "stage2_triggered": true,
+        "homing_update_count": 2089,
+        "last_red_seen_sim_time": 148.824,
+        "gnss_model": "ornstein_uhlenbeck",
+        "max_gps_wander_m": 1.3520994764037824,
+        "gps_wander_at_lock_xy": [
+          -0.2546836324621078,
+          -0.5235279644564067
+        ],
+        "handoff_packet_seq": 1,
+        "handoff_crc_valid": true,
+        "fiducial_verified": true,
+        "fiducial_target_yaw_deg": 45.84241162163154,
+        "fiducial_marker_separation_m": 1.1600157152098418,
+        "terminal_error_m": 0.037001109798471335,
+        "visual_id_confirmed": true,
+        "sim_time_s": 148.824,
+        "time_handoff_to_lock_s": 76.04
+      },
+      "true_target_at_lock": [
+        12.93503999999657,
+        8.623359999996069,
+        0.05
+      ]
+    },
+    "Follower_Drone_02": {
+      "handoff": {
+        "drone": "Follower_Drone_02",
+        "scout_id": "Scout_Drone_01",
+        "scout_gps": [
+          6.549263364659941,
+          3.9961864497041595,
+          5.313407872621397
+        ],
+        "target_gps": [
+          6.851842268059557,
+          3.5340028481828325,
+          0.16899096337124536
+        ],
+        "target_vel": [
+          0.09,
+          0.06,
+          0.0
+        ],
+        "approach_bearing_deg": 2.777554660191711,
+        "distance_at_receipt_m": 10.886065465753283,
+        "ref_orb_features": 308,
+        "packet_bytes": 11522,
+        "packet_seq": 2,
+        "packet_tx_time_s": 73.776,
+        "packet_crc_valid": true,
+        "dropped_packets": [
+          {
+            "seq": 0,
+            "tx_time_s": 71.776,
+            "rx_time_s": 71.784,
+            "reason": "link_drop_emulated"
+          },
+          {
+            "seq": 1,
+            "tx_time_s": 72.776,
+            "rx_time_s": 72.784,
+            "reason": "link_drop_emulated"
+          }
+        ],
+        "decode_latency_ms": 120.0,
+        "receipt_lag_from_mark_ms": 2008.0000000000098,
+        "sim_time_s": 73.784
+      },
+      "lock": {
+        "drone": "Follower_Drone_02",
+        "gps": [
+          16.09993088982086,
+          10.72641429521937,
+          6.511095778846101
+        ],
+        "perceived_gps_at_lock": [
+          16.06635319460769,
+          10.743799974368661,
+          6.511095778846101
+        ],
+        "noisy_target_gps": [
+          6.851842268059557,
+          3.5340028481828325,
+          0.16899096337124536
+        ],
+        "refined_target_xy": [
+          16.078138243411363,
+          10.742363755079573
+        ],
+        "rel_target_xy": [
+          -0.032726157088400924,
+          -0.012673050139391292
+        ],
+        "stage2_triggered": true,
+        "homing_update_count": 2216,
+        "last_red_seen_sim_time": 183.632,
+        "gnss_model": "ornstein_uhlenbeck",
+        "max_gps_wander_m": 0.8672974661400168,
+        "gps_wander_at_lock_xy": [
+          -0.033577695213171485,
+          0.017385679149289807
+        ],
+        "handoff_packet_seq": 2,
+        "handoff_crc_valid": true,
+        "fiducial_verified": true,
+        "fiducial_target_yaw_deg": 45.72572483690702,
+        "fiducial_marker_separation_m": 1.1628936743377807,
+        "terminal_error_m": 0.03509426673418636,
+        "visual_id_confirmed": true,
+        "sim_time_s": 183.632,
+        "time_handoff_to_lock_s": 109.848
+      },
+      "true_target_at_lock": [
+        16.067759999994074,
+        10.711839999994293,
+        0.05
+      ]
+    }
+  },
+  "ground_truth": {
+    "outcome": "mission_complete",
+    "sim_time_s": 185.648,
+    "initial_target_xyz": [
+      6.0,
+      4.0,
+      0.05
+    ],
+    "true_target_xyz": [
+      16.248479999994366,
+      10.83231999999419,
+      0.05
+    ],
+    "target_displacement_m": 12.317140045181151,
+    "lock_true_targets": {
+      "Follower_Drone_02": [
+        16.067759999994074,
+        10.711839999994293,
+        0.05
+      ],
+      "Follower_Drone_01": [
+        12.93503999999657,
+        8.623359999996069,
+        0.05
+      ]
+    },
+    "final_positions": {
+      "FOLLOWER_2": [
+        16.835701769058865,
+        10.964543232518887,
+        6.490516730940014
+      ],
+      "FOLLOWER_1": [
+        15.788466466962014,
+        9.555249583537414,
+        4.502495875025411
+      ],
+      "SCOUT": [
+        15.000041427273228,
+        10.001405706466603,
+        5.502676551986821
+      ]
+    },
+    "wind_gust_active": true,
+    "wind_model": {
+      "steady_crosswind_n": [
+        0.013999999999999999,
+        -0.01,
+        0.0
+      ],
+      "gust_amp_xy_n": 0.01,
+      "gust_amp_z_n": 0.004,
+      "applied_while_z_gt_m": 1.0,
+      "wind_scale_vs_spec": 0.04,
+      "mc_seed": 7
+    }
+  },
+  "rust_performance": {
+    "Scout_Drone_01": {
+      "drone_id": "Scout_Drone_01",
+      "total_steps": 22999,
+      "mean_step_us": 382.2837079873042,
+      "p99_step_us": 1539.3,
+      "max_step_us": 6360.099999999999
+    },
+    "Follower_Drone_01": {
+      "drone_id": "Follower_Drone_01",
+      "total_steps": 22999,
+      "mean_step_us": 286.7100265228921,
+      "p99_step_us": 2844.7,
+      "max_step_us": 27911.100000000002
+    },
+    "Follower_Drone_02": {
+      "drone_id": "Follower_Drone_02",
+      "total_steps": 22999,
+      "mean_step_us": 393.7767989912613,
+      "p99_step_us": 4823.3,
+      "max_step_us": 38705.5
+    }
+  },
+  "milestone_5_detail": {
+    "min_building_clearance_m": 1.5495597891014081,
+    "max_detour_lateral_m": 7.853722460120682,
+    "per_drone": {
+      "SCOUT": {
+        "min_clearance_m": 2.2151341381505545,
+        "max_lateral_m": 6.779129773117583
+      },
+      "FOLLOWER_1": {
+        "min_clearance_m": 1.5495597891014081,
+        "max_lateral_m": 7.853722460120682
+      },
+      "FOLLOWER_2": {
+        "min_clearance_m": 2.9365961826577385,
+        "max_lateral_m": 6.401571763215965
+      }
+    }
+  },
+  "milestone_6_detail": {
+    "Follower_Drone_01": {
+      "max_gps_wander_m": 1.3520994764037824
+    },
+    "Follower_Drone_02": {
+      "max_gps_wander_m": 0.8672974661400168
+    }
+  },
+  "milestone_7_detail": {
+    "Scout_Drone_01": {
+      "drone_id": "Scout_Drone_01",
+      "use_json_map_in_controller": false,
+      "sensor_hits_count": 11710,
+      "sensed_obstacle_centroids": [],
+      "active_clusters": 0,
+      "sim_time_s": 184.0
+    },
+    "Follower_Drone_01": {
+      "drone_id": "Follower_Drone_01",
+      "use_json_map_in_controller": false,
+      "sensor_hits_count": 24971,
+      "sensed_obstacle_centroids": [],
+      "active_clusters": 0,
+      "sim_time_s": 184.0
+    },
+    "Follower_Drone_02": {
+      "drone_id": "Follower_Drone_02",
+      "use_json_map_in_controller": false,
+      "sensor_hits_count": 23703,
+      "sensed_obstacle_centroids": [],
+      "active_clusters": 0,
+      "sim_time_s": 184.0
+    }
+  },
+  "milestone_11_detail": {
+    "real_osm_buildings_placed": 13,
+    "min_building_clearance_m": 1.5495597891014081
+  },
+  "milestone_13_detail": {
+    "target_displacement_m": 12.317140045181151,
+    "lock_true_targets": {
+      "Follower_Drone_02": [
+        16.067759999994074,
+        10.711839999994293,
+        0.05
+      ],
+      "Follower_Drone_01": [
+        12.93503999999657,
+        8.623359999996069,
+        0.05
+      ]
+    }
+  }
+}

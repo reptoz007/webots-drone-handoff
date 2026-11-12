@@ -105,3 +105,15 @@ iteration; full details in `PROJECT_HANDOVER.md` (bug log #45-#49):
 Result: `--mc 5` = **5/5 trials, 13/13 milestones each**, terminal errors
 3.05-4.12 cm (mean 3.60 cm) on the moving target, missions complete t = 176-188 s.
 
+## Phase 15 outcome — ALL PHASES COMPLETE (2026-11-13)
+
+* Bug **#50** (found by the first `--mc 10`): single-instant fiducial probes at
+  lock missed on F2 (markers ~150 px^2 at 6.5 m) — trial 5 failed ONLY M10 with a
+  3.32 cm lock. Fix: record the best fiducial geometry across the verified hover
+  and report that at lock. See `PROJECT_HANDOVER.md` bug log.
+* Final `--mc 10` (with #50): **10/10 trials, 13/13 milestones each**;
+  terminal errors min 2.83 / mean 3.59 / max 4.12 cm; missions t = 172-188 s.
+* Canonical run 13/13 + dashboard regenerated after the suite.
+* Full summary, 13-milestone table, and Rust latency benchmark:
+  `PROJECT_HANDOVER.md` Phase 15 FINAL section.
+
