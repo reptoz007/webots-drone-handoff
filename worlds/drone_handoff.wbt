@@ -1,0 +1,388 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+
+WorldInfo {
+  info [
+    "Cooperative Drone Target Handoff and Visual Servoing Simulation"
+  ]
+  title "Swarm Target Handoff"
+  basicTimeStep 8
+  defaultDamping Damping {
+    linear 0.5
+    angular 0.5
+  }
+  coordinateSystem "ENU"
+}
+
+Viewpoint {
+  orientation -0.28 0.25 0.92 1.65
+  position -6.5 -14.0 11.5
+  follow "Scout_Drone"
+}
+
+TexturedBackground {
+}
+
+TexturedBackgroundLight {
+}
+
+Floor {
+  size 100 100
+  tileSize 2 2
+}
+
+# High-Contrast Ground Target at (6.0, 4.0, 0.05) with asymmetric visual features for ORB matching
+Solid {
+  translation 6.0 4.0 0.05
+  name "Ground_Target"
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.85 0.15 0.15
+        roughness 0.8
+        metalness 0
+      }
+      geometry Box {
+        size 1.4 1.4 0.1
+      }
+    }
+    Pose {
+      translation 0.1 0.15 0.06
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.95 0.95 0.1
+            roughness 0.8
+            metalness 0
+          }
+          geometry Box {
+            size 0.4 0.2 0.02
+          }
+        }
+      ]
+    }
+    Pose {
+      translation -0.25 0.32 0.06
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.8 0.95
+            roughness 0.8
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.02
+            radius 0.22
+          }
+        }
+      ]
+    }
+    Pose {
+      translation -0.4 -0.4 0.06
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.1 0.1
+            roughness 0.8
+            metalness 0
+          }
+          geometry Box {
+            size 0.22 0.22 0.02
+          }
+        }
+      ]
+    }
+    # Phase 10 asymmetric fiducial: marker A (bar, NE) + marker B (square, SW).
+    # The A->B ground vector is the known geometry (0.8, 0.8) m, i.e. 45 deg /
+    # 1.13 m — the followers verify target identity AND orientation from it.
+    Pose {
+      translation 0.42 0.44 0.06
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.1 0.1
+            roughness 0.8
+            metalness 0
+          }
+          geometry Box {
+            size 0.5 0.18 0.02
+          }
+        }
+      ]
+    }
+  ]
+  boundingObject Box {
+    size 1.4 1.4 0.1
+  }
+}
+
+# 1. SCOUT DRONE (Starts at [-6, -4, 0.1], far enough to spot the target with its forward camera)
+DEF SCOUT Mavic2Pro {
+  translation -6 -4 0.1
+  rotation 0 0 1 0
+  name "Scout_Drone"
+  controller "scout_controller"
+  bodySlot [
+    # Forward-facing camera (fixed 17 deg downtilt) to spot the target during approach
+    Camera {
+      translation 0.12 0 0.02
+      rotation 0 1 0 0.3
+      name "front_camera"
+      fieldOfView 1.047
+      width 400
+      height 400
+    }
+    # Nadir Laser Rangefinder for precise overhead ranging (narrow aperture = tiny laser dot)
+    DistanceSensor {
+      translation 0.05 0 -0.05
+      rotation 0 1 0 1.5708
+      name "laser_rangefinder"
+      lookupTable [
+        0 0 0
+        50 50 0
+      ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    Emitter {
+      name "swarm_emitter"
+      channel 1
+      range 500
+      maxRange 500
+    }
+    # Phase 7: 5-beam horizontal rangefinder array for mapless obstacle avoidance
+    # (beams at 0 / +/-30 / +/-60 deg in body frame, 12 m range each)
+    DistanceSensor {
+      translation 0.10 0 0.0
+      rotation 0 0 1 0
+      name "rf_front"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.10 0.03 0.0
+      rotation 0 0 1 0.5236
+      name "rf_fl"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.10 -0.03 0.0
+      rotation 0 0 1 -0.5236
+      name "rf_fr"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.05 0.06 0.0
+      rotation 0 0 1 1.0472
+      name "rf_left"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.05 -0.06 0.0
+      rotation 0 0 1 -1.0472
+      name "rf_right"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+  ]
+}
+
+# 2. FOLLOWER DRONE (Starts at [-4.0, -3.0, 0.1])
+DEF FOLLOWER_1 Mavic2Pro {
+  translation -4.0 -3.0 0.1
+  rotation 0 0 1 0
+  name "Follower_Drone"
+  controller "follower_controller"
+  bodySlot [
+    # Forward-facing camera (fixed 17 deg downtilt) to identify the target during approach
+    Camera {
+      translation 0.12 0 0.02
+      rotation 0 1 0 0.3
+      name "front_camera"
+      fieldOfView 1.047
+      width 400
+      height 400
+    }
+    # Steep fixed downtilt camera (66 deg) for Stage 2 terminal visual homing;
+    # sees the ground from ~0.5 m behind to ~6 m ahead of the drone
+    Camera {
+      translation 0.12 0 0.02
+      rotation 0 1 0 1.15
+      name "terminal_camera"
+      fieldOfView 1.047
+      width 400
+      height 400
+    }
+    Receiver {
+      name "swarm_receiver"
+      channel 1
+    }
+    # Follower status broadcast (sequenced terminal corridor: the primary
+    # follower announces its lock so the teammate can make its own approach)
+    Emitter {
+      name "swarm_emitter"
+      channel 1
+      range 500
+      maxRange 500
+    }
+    # Phase 7: 5-beam horizontal rangefinder array for mapless obstacle avoidance
+    # (beams at 0 / +/-30 / +/-60 deg in body frame, 12 m range each)
+    DistanceSensor {
+      translation 0.10 0 0.0
+      rotation 0 0 1 0
+      name "rf_front"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.10 0.03 0.0
+      rotation 0 0 1 0.5236
+      name "rf_fl"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.10 -0.03 0.0
+      rotation 0 0 1 -0.5236
+      name "rf_fr"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.05 0.06 0.0
+      rotation 0 0 1 1.0472
+      name "rf_left"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.05 -0.06 0.0
+      rotation 0 0 1 -1.0472
+      name "rf_right"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+  ]
+}
+
+# 3. SECOND FOLLOWER (Starts at [-4.0, 3.0, 0.1], cruises 2 m higher to deconflict airspace)
+DEF FOLLOWER_2 Mavic2Pro {
+  translation -4.0 3.0 0.1
+  rotation 0 0 1 0
+  name "Follower_Drone_2"
+  controller "follower_controller"
+  customData "{\"id\":\"Follower_Drone_02\",\"home\":[-4.0,3.0],\"alt\":6.5}"
+  bodySlot [
+    Camera {
+      translation 0.12 0 0.02
+      rotation 0 1 0 0.3
+      name "front_camera"
+      fieldOfView 1.047
+      width 400
+      height 400
+    }
+    # Steep fixed downtilt camera (66 deg) for Stage 2 terminal visual homing;
+    # sees the ground from ~0.5 m behind to ~6 m ahead of the drone
+    Camera {
+      translation 0.12 0 0.02
+      rotation 0 1 0 1.15
+      name "terminal_camera"
+      fieldOfView 1.047
+      width 400
+      height 400
+    }
+    Receiver {
+      name "swarm_receiver"
+      channel 1
+    }
+    # Follower status broadcast (sequenced terminal corridor: the primary
+    # follower announces its lock so the teammate can make its own approach)
+    Emitter {
+      name "swarm_emitter"
+      channel 1
+      range 500
+      maxRange 500
+    }
+    # Phase 7: 5-beam horizontal rangefinder array for mapless obstacle avoidance
+    # (beams at 0 / +/-30 / +/-60 deg in body frame, 12 m range each)
+    DistanceSensor {
+      translation 0.10 0 0.0
+      rotation 0 0 1 0
+      name "rf_front"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.10 0.03 0.0
+      rotation 0 0 1 0.5236
+      name "rf_fl"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.10 -0.03 0.0
+      rotation 0 0 1 -0.5236
+      name "rf_fr"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.05 0.06 0.0
+      rotation 0 0 1 1.0472
+      name "rf_left"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+    DistanceSensor {
+      translation 0.05 -0.06 0.0
+      rotation 0 0 1 -1.0472
+      name "rf_right"
+      lookupTable [ 0 0 0, 12 12 0 ]
+      type "laser"
+      aperture 0.02
+      numberOfRays 1
+    }
+  ]
+}
+
+Robot {
+  name "metrics_supervisor"
+  supervisor TRUE
+  controller "metrics_supervisor"
+}

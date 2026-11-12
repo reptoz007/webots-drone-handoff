@@ -1,0 +1,120 @@
+
+===== MONTE CARLO TRIAL 1/3 (seed 0) =====
+Webots running (pid 29384). Watch the Webots window.
+
+========== HANDOFF VERIFICATION REPORT ==========
+Scout clean target at (5.998, 4.018, 0.150)  [xy err 1.77 cm]
+  GPS drift injected: +(0.65, -0.55) m (0.85 m) -> broadcast (6.648, 3.468, 0.150)
+  LRF range 4.36 m | packet 10853 bytes | t=70.7s
+Follower_Drone_01:
+  packet received    : t=71.7s, bearing 31.3 deg, 12.5 m to noisy target, 35 ORB features
+  VISUAL LOCK        : t=147.1s (75.4s after handoff), stage2=True, homing updates=720, terminal error 3.18 cm
+    noisy (6.648, 3.468) -> refined (6.017, 4.019)
+  final true error   : 160.1 cm
+Follower_Drone_02:
+  packet received    : t=72.7s, bearing 2.5 deg, 10.7 m to noisy target, 35 ORB features
+  VISUAL LOCK        : t=163.5s (90.8s after handoff), stage2=True, homing updates=976, terminal error 3.33 cm
+    noisy (6.648, 3.468) -> refined (6.019, 4.015)
+  final true error   : 49.2 cm
+
+----- Spec section 5 milestones -----
+  [PASS] 1. Scout raycast precision (<=5 cm of truth)
+  [PASS] 2. Radio reception + visual ID (chip decoded, ID confirmed)
+  [PASS] 3. Airspace deconfliction (scout clears before terminal)
+  [PASS] 4. Drift correction via visual homing (terminal <5 cm)
+  [PASS] 5. Obstacle avoidance (clearance >0.6 m + corridor detour)
+  [PASS] 6. Live GPS wander (+/-0.45 m) + pure IBVS lock (terminal <5 cm)
+  [PASS] 7. Mapless avoidance (>=15 onboard lidar hits/drone, no map in control)
+  [PASS] 8. Degraded radio (F1 drops seq 0, F2 drops seq 0+1 + 120 ms; lock via retransmit + CRC)
+  [PASS] 9. Multi-obstacle slalom (>=2 avoided) + wind gust rejection (terminal <5 cm)
+  [PASS] 10. Fiducial geometry + orientation verified at lock (both followers)
+  wander detail: 01: max wander 0.51 m, wander@lock ([0.04366422381899823, 0.25172963425391115]), terminal err 3.2 cm | 02: max wander 0.54 m, wander@lock ([-0.11432137667335537, -0.1555115446140638]), terminal err 3.3 cm
+  radio detail: 01: locked from seq 1, crc True, drops [0] | 02: locked from seq 2, crc True, drops [0, 1]
+  lidar detail: Scout 10925 hits, 0 clusters | Follower 26607 hits, 0 clusters | Follower 32120 hits, 1 clusters
+  obstacle detail: min building clearance 1.63 m | max corridor detour 7.57 m off the straight path | obstacles avoided (encountered & cleared) 2 | wind gusts active True
+Outcome: mission_complete (sim t=165.5s)
+MISSION SUCCESS: True
+Results: C:\Users\harsh\Documents\Qoder\2026-11-10\c386c8d6\webots_drone_handoff_clone\results
+
+===== MONTE CARLO TRIAL 2/3 (seed 1) =====
+Webots running (pid 8788). Watch the Webots window.
+
+========== HANDOFF VERIFICATION REPORT ==========
+Scout clean target at (6.000, 4.016, 0.150)  [xy err 1.61 cm]
+  GPS drift injected: +(0.65, -0.55) m (0.85 m) -> broadcast (6.650, 3.466, 0.150)
+  LRF range 4.36 m | packet 11034 bytes | t=71.6s
+Follower_Drone_01:
+  packet received    : t=72.6s, bearing 31.3 deg, 12.5 m to noisy target, 51 ORB features
+  NO VISUAL LOCK
+Follower_Drone_02:
+  packet received    : t=73.6s, bearing 2.5 deg, 10.7 m to noisy target, 51 ORB features
+  NO VISUAL LOCK
+
+----- Spec section 5 milestones -----
+  [PASS] 1. Scout raycast precision (<=5 cm of truth)
+  [PASS] 2. Radio reception + visual ID (chip decoded, ID confirmed)
+  [PASS] 3. Airspace deconfliction (scout clears before terminal)
+  [FAIL] 4. Drift correction via visual homing (terminal <5 cm)
+  [PASS] 5. Obstacle avoidance (clearance >0.6 m + corridor detour)
+  [FAIL] 6. Live GPS wander (+/-0.45 m) + pure IBVS lock (terminal <5 cm)
+  [PASS] 7. Mapless avoidance (>=15 onboard lidar hits/drone, no map in control)
+  [FAIL] 8. Degraded radio (F1 drops seq 0, F2 drops seq 0+1 + 120 ms; lock via retransmit + CRC)
+  [FAIL] 9. Multi-obstacle slalom (>=2 avoided) + wind gust rejection (terminal <5 cm)
+  [FAIL] 10. Fiducial geometry + orientation verified at lock (both followers)
+  lidar detail: Scout 10350 hits, 0 clusters | Follower 27720 hits, 1 clusters | Follower 30048 hits, 1 clusters
+  obstacle detail: min building clearance 1.63 m | max corridor detour 6.99 m off the straight path | obstacles avoided (encountered & cleared) 2 | wind gusts active True
+Outcome: crash:FOLLOWER_2 (sim t=148.5s)
+MISSION SUCCESS: False
+Results: C:\Users\harsh\Documents\Qoder\2026-11-10\c386c8d6\webots_drone_handoff_clone\results
+
+===== MONTE CARLO TRIAL 3/3 (seed 2) =====
+Webots running (pid 22340). Watch the Webots window.
+
+========== HANDOFF VERIFICATION REPORT ==========
+Scout clean target at (6.004, 4.018, 0.150)  [xy err 1.83 cm]
+  GPS drift injected: +(0.65, -0.55) m (0.85 m) -> broadcast (6.654, 3.468, 0.150)
+  LRF range 4.36 m | packet 10954 bytes | t=78.6s
+Follower_Drone_01:
+  packet received    : t=79.6s, bearing 31.3 deg, 12.5 m to noisy target, 54 ORB features
+  VISUAL LOCK        : t=146.3s (66.7s after handoff), stage2=True, homing updates=1194, terminal error 7.06 cm
+    noisy (6.654, 3.468) -> refined (5.999, 4.043)
+  final true error   : 160.3 cm
+Follower_Drone_02:
+  packet received    : t=80.6s, bearing 2.5 deg, 10.7 m to noisy target, 54 ORB features
+  VISUAL LOCK        : t=164.3s (83.7s after handoff), stage2=True, homing updates=891, terminal error 2.82 cm
+    noisy (6.654, 3.468) -> refined (6.019, 4.017)
+  final true error   : 54.8 cm
+
+----- Spec section 5 milestones -----
+  [PASS] 1. Scout raycast precision (<=5 cm of truth)
+  [PASS] 2. Radio reception + visual ID (chip decoded, ID confirmed)
+  [PASS] 3. Airspace deconfliction (scout clears before terminal)
+  [FAIL] 4. Drift correction via visual homing (terminal <5 cm)
+  [PASS] 5. Obstacle avoidance (clearance >0.6 m + corridor detour)
+  [FAIL] 6. Live GPS wander (+/-0.45 m) + pure IBVS lock (terminal <5 cm)
+  [PASS] 7. Mapless avoidance (>=15 onboard lidar hits/drone, no map in control)
+  [PASS] 8. Degraded radio (F1 drops seq 0, F2 drops seq 0+1 + 120 ms; lock via retransmit + CRC)
+  [FAIL] 9. Multi-obstacle slalom (>=2 avoided) + wind gust rejection (terminal <5 cm)
+  [PASS] 10. Fiducial geometry + orientation verified at lock (both followers)
+  wander detail: 01: max wander 0.52 m, wander@lock ([-0.05821401062008125, 0.2668851692113703]), terminal err 7.1 cm | 02: max wander 0.57 m, wander@lock ([0.03276906486496636, 0.19903874752201467]), terminal err 2.8 cm
+  radio detail: 01: locked from seq 1, crc True, drops [0] | 02: locked from seq 2, crc True, drops [0, 1]
+  lidar detail: Scout 12060 hits, 0 clusters | Follower 26836 hits, 0 clusters | Follower 31763 hits, 1 clusters
+  obstacle detail: min building clearance 1.62 m | max corridor detour 7.73 m off the straight path | obstacles avoided (encountered & cleared) 2 | wind gusts active True
+Outcome: mission_complete (sim t=166.3s)
+MISSION SUCCESS: False
+Results: C:\Users\harsh\Documents\Qoder\2026-11-10\c386c8d6\webots_drone_handoff_clone\results
+
+===== MONTE CARLO SUMMARY =====
+  trials passed: 1/3
+  1_raycast_precision: 3/3
+  2_reception_visual_id: 3/3
+  3_airspace_deconfliction: 3/3
+  4_drift_correction_visual_homing: 1/3
+  5_obstacle_avoidance: 3/3
+  6_live_gps_wander_ibvs: 1/3
+  7_mapless_sensor_avoidance: 3/3
+  8_degraded_radio_retransmission: 2/3
+  9_multi_obstacle_and_wind_rejection: 1/3
+  10_fiducial_geometry_verification: 2/3
+  terminal error: min 2.82 cm / mean 4.10 cm / max 7.06 cm
+  summary: C:\Users\harsh\Documents\Qoder\2026-11-10\c386c8d6\webots_drone_handoff_clone\results_mc\mc_summary.json

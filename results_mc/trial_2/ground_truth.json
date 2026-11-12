@@ -1,0 +1,40 @@
+{
+  "outcome": "mission_complete",
+  "sim_time_s": 166.328,
+  "true_target_xyz": [
+    6.0,
+    4.0,
+    0.05
+  ],
+  "final_positions": {
+    "SCOUT": [
+      8.504399728841785,
+      4.000366782898944,
+      5.488923164219809
+    ],
+    "FOLLOWER_1": [
+      7.524752558313166,
+      4.494388943140233,
+      4.488960358782129
+    ],
+    "FOLLOWER_2": [
+      6.534419422718384,
+      3.8777956314093567,
+      6.481815920216422
+    ]
+  },
+  "wind_gust_active": true,
+  "wind_model": {
+    "steady_crosswind_n": [
+      0.014,
+      -0.01,
+      0.0
+    ],
+    "gust_amp_xy_n": 0.01,
+    "gust_amp_z_n": 0.004,
+    "applied_while_z_gt_m": 1.0,
+    "wind_scale_vs_spec": 0.04,
+    "mc_seed": 2,
+    "description": "Dryden-style: steady crosswind plus multi-frequency sinusoidal gusts via node.addForce on every drone above 1.0 m. Spec forces scaled x0.04 for the 0.1 kg PROTO mass and the cascade's rejection authority (bug #31) \u2014 see the supervisor."
+  }
+}

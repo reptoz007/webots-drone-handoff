@@ -1,0 +1,90 @@
+{
+  "n_trials": 3,
+  "all_passed": false,
+  "pass_count": 1,
+  "milestone_pass_rates": {
+    "1_raycast_precision": 3,
+    "2_reception_visual_id": 3,
+    "3_airspace_deconfliction": 3,
+    "4_drift_correction_visual_homing": 1,
+    "5_obstacle_avoidance": 3,
+    "6_live_gps_wander_ibvs": 1,
+    "7_mapless_sensor_avoidance": 3,
+    "8_degraded_radio_retransmission": 2,
+    "9_multi_obstacle_and_wind_rejection": 1,
+    "10_fiducial_geometry_verification": 2
+  },
+  "terminal_error_m": {
+    "min": 0.028243557460914483,
+    "max": 0.07063375219293191,
+    "mean": 0.040997557158585635
+  },
+  "trials": [
+    {
+      "seed": 0,
+      "mission_success": true,
+      "webots_exit_code": 0,
+      "milestones": {
+        "1_raycast_precision": true,
+        "2_reception_visual_id": true,
+        "3_airspace_deconfliction": true,
+        "4_drift_correction_visual_homing": true,
+        "5_obstacle_avoidance": true,
+        "6_live_gps_wander_ibvs": true,
+        "7_mapless_sensor_avoidance": true,
+        "8_degraded_radio_retransmission": true,
+        "9_multi_obstacle_and_wind_rejection": true,
+        "10_fiducial_geometry_verification": true
+      },
+      "terminal_errors_m": {
+        "Follower_Drone_01": 0.03180569621443358,
+        "Follower_Drone_02": 0.03330722276606256
+      },
+      "sim_time_s": 165.52
+    },
+    {
+      "seed": 1,
+      "mission_success": false,
+      "webots_exit_code": 1,
+      "milestones": {
+        "1_raycast_precision": true,
+        "2_reception_visual_id": true,
+        "3_airspace_deconfliction": true,
+        "4_drift_correction_visual_homing": false,
+        "5_obstacle_avoidance": true,
+        "6_live_gps_wander_ibvs": false,
+        "7_mapless_sensor_avoidance": true,
+        "8_degraded_radio_retransmission": false,
+        "9_multi_obstacle_and_wind_rejection": false,
+        "10_fiducial_geometry_verification": false
+      },
+      "terminal_errors_m": {
+        "Follower_Drone_01": null,
+        "Follower_Drone_02": null
+      },
+      "sim_time_s": 148.488
+    },
+    {
+      "seed": 2,
+      "mission_success": false,
+      "webots_exit_code": 0,
+      "milestones": {
+        "1_raycast_precision": true,
+        "2_reception_visual_id": true,
+        "3_airspace_deconfliction": true,
+        "4_drift_correction_visual_homing": false,
+        "5_obstacle_avoidance": true,
+        "6_live_gps_wander_ibvs": false,
+        "7_mapless_sensor_avoidance": true,
+        "8_degraded_radio_retransmission": true,
+        "9_multi_obstacle_and_wind_rejection": false,
+        "10_fiducial_geometry_verification": true
+      },
+      "terminal_errors_m": {
+        "Follower_Drone_01": 0.07063375219293191,
+        "Follower_Drone_02": 0.028243557460914483
+      },
+      "sim_time_s": 166.328
+    }
+  ]
+}
