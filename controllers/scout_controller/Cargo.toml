@@ -1,0 +1,10 @@
+[package]
+name = "scout_controller"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+webots_ffi = { path = "../../crates/webots_ffi" }
+swarm_core = { path = "../../crates/swarm_core" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

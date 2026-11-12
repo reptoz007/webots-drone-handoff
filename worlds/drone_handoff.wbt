@@ -36,7 +36,7 @@ Floor {
 }
 
 # High-Contrast Ground Target at (6.0, 4.0, 0.05) with asymmetric visual features for ORB matching
-Solid {
+DEF TARGET Solid {
   translation 6.0 4.0 0.05
   name "Ground_Target"
   children [
@@ -225,7 +225,7 @@ DEF FOLLOWER_1 Mavic2Pro {
     # sees the ground from ~0.5 m behind to ~6 m ahead of the drone
     Camera {
       translation 0.12 0 0.02
-      rotation 0 1 0 1.15
+      rotation 0 1 0 1.35
       name "terminal_camera"
       fieldOfView 1.047
       width 400
@@ -313,7 +313,7 @@ DEF FOLLOWER_2 Mavic2Pro {
     # sees the ground from ~0.5 m behind to ~6 m ahead of the drone
     Camera {
       translation 0.12 0 0.02
-      rotation 0 1 0 1.15
+      rotation 0 1 0 1.35
       name "terminal_camera"
       fieldOfView 1.047
       width 400

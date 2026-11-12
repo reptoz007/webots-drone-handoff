@@ -1,12 +1,28 @@
 # Webots Cooperative Drone Target Handoff Simulation
 
+## All controllers are native Rust (Phase 11 baseline)
+
+The three Webots controllers (`scout_controller`, `follower_controller`,
+`metrics_supervisor`) are **native Rust executables** built from this Cargo workspace
+(`crates/webots_ffi` — safe FFI over the Webots C API; `crates/swarm_core` — pure-Rust
+protocol/vision/control with zero OpenCV dependency). Webots runs
+`controllers/<name>/<name>.exe` when present; the retired Python controllers are kept as
+`<name>_python_fallback.py` for reference only. The old Python-era 10-milestone harness is
+`run_verification_python10.py` / `build_dashboard_python10.py`.
+
+```bash
+cargo build --release        # build all three controllers (needs Rust + Webots Controller.lib)
+python run_verification.py worlds/drone_handoff_realmap.wbt --mc 5   # auto-builds, runs, grades 13 milestones
+python build_dashboard.py
+```
+
+See `ROADMAP_PHASES_11_15.md` for the active engineering roadmap (moving target, OU GNSS
+noise, 13-milestone gates, Monte Carlo 10).
+
 ## Prerequisites
 1. Install **Webots R2023b** (or newer; verified on R2025a) from [cyberbotics.com](https://cyberbotics.com).
-2. Ensure Python 3.9+ is configured in Webots (`Tools -> Preferences -> Python command`).
-3. Install required Python libraries in the Python environment used by Webots:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Install **Rust** (rustup, `x86_64-pc-windows-msvc`) and MSVC Build Tools.
+3. Python 3.9+ with `pip install -r requirements.txt` (for the world builder / harness / dashboard only).
 
 ## How to Run
 

@@ -54,12 +54,13 @@ OVERPASS_URLS = (
 )
 
 TARGET_XY = (6.0, 4.0)
+TARGET_END_XY = (16.5, 11.0)  # Phase 14: moving-target lane end (6,4)->(16.5,11) at [0.09, 0.06] m/s
 HOME_SCOUT = (-6.0, -4.0)
 HOME_F1 = (-4.0, -3.0)
 HOME_F2 = (-4.0, 3.0)
-LOITER_XY = (8.5, 4.0)
+LOITER_XY = (15.0, 10.0)    # Phase 14: clear of the moving-target corridor
 SPAWN_CLEAR_M = 4.0         # keep drone takeoff pads clear
-HOVER_CLEAR_M = 5.0         # keep target (6,4) and loiter (8.5,4) hover zones clear
+HOVER_CLEAR_M = 5.0         # keep target/loiter hover zones clear
 CORRIDOR_NEAR_M = 2.5       # "blocks the path" = bbox within this distance of a flight segment
 # Phase 9: deterministic staggered corridor obstacles (multi-building slalom).
 # Injected whenever fewer than 2 real OSM buildings block the follower paths so
@@ -262,14 +263,18 @@ def _bbox_dist_to_point(minx, miny, maxx, maxy, px, py):
 
 
 def _clear_of_pads_and_target(minx, miny, maxx, maxy):
-    """Only skip buildings that physically overlap a spawn pad or terminal hover spot.
-    Buildings in the flight corridor are KEPT so drones must route around them."""
+    """Only skip buildings that physically overlap a spawn pad, a hover spot, or the
+    moving-target lane. Buildings in the flight corridor are KEPT so drones must
+    route around them."""
     for px, py in (HOME_SCOUT, HOME_F1, HOME_F2):
         if _bbox_dist_to_point(minx, miny, maxx, maxy, px, py) < SPAWN_CLEAR_M:
             return False
     for px, py in (TARGET_XY, LOITER_XY):
         if _bbox_dist_to_point(minx, miny, maxx, maxy, px, py) < HOVER_CLEAR_M:
             return False
+    # Phase 14: keep the moving-target trajectory lane (TARGET_XY -> TARGET_END_XY) clear
+    if _bbox_near_segment(minx, miny, maxx, maxy, TARGET_XY, TARGET_END_XY, HOVER_CLEAR_M):
+        return False
     return True
 
 

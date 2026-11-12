@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/webots_ffi",
+    "crates/swarm_core",
+    "controllers/scout_controller",
+    "controllers/follower_controller",
+    "controllers/metrics_supervisor",
+]
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

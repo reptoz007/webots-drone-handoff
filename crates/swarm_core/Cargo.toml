@@ -1,0 +1,15 @@
+[package]
+name = "swarm_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+# float_roundtrip: the default fast float parser is not correctly rounded, so a
+# parse -> re-serialize round trip can flip an f64 by 1 ulp and silently break the
+# CRC32 canonicalization of every handoff packet (observed on seq-0/seq-2 packets).
+serde_json = { version = "1.0", features = ["float_roundtrip"] }
+base64 = "0.22"
+crc32fast = "1.4"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
+rand = "0.8"

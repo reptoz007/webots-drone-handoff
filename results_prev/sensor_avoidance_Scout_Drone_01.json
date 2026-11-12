@@ -1,8 +1,8 @@
 {
   "drone_id": "Scout_Drone_01",
   "use_json_map_in_controller": false,
-  "sensor_hits_count": 10350,
+  "sensor_hits_count": 13484,
   "sensed_obstacle_centroids": [],
   "active_clusters": 0,
-  "sim_time_s": 148.0
+  "sim_time_s": 152.0
 }
